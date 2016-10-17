@@ -15,6 +15,7 @@
 		C547136B1DB23CD6009FD170 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54713691DB23CD6009FD170 /* LaunchScreen.storyboard */; };
 		C54713761DB23CD6009FD170 /* TestOCWithiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C54713751DB23CD6009FD170 /* TestOCWithiOSTests.m */; };
 		C54713811DB23CD6009FD170 /* TestOCWithiOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C54713801DB23CD6009FD170 /* TestOCWithiOSUITests.m */; };
+		C5BCF95F1DB35A8900A81F36 /* LabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BCF95E1DB35A8900A81F36 /* LabelViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		C547137C1DB23CD6009FD170 /* TestOCWithiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestOCWithiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C54713801DB23CD6009FD170 /* TestOCWithiOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestOCWithiOSUITests.m; sourceTree = "<group>"; };
 		C54713821DB23CD6009FD170 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C5BCF95D1DB35A8900A81F36 /* LabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelViewController.h; sourceTree = "<group>"; };
+		C5BCF95E1DB35A8900A81F36 /* LabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				C547135F1DB23CD5009FD170 /* AppDelegate.m */,
 				C54713611DB23CD5009FD170 /* ViewController.h */,
 				C54713621DB23CD5009FD170 /* ViewController.m */,
+				C5BCF95D1DB35A8900A81F36 /* LabelViewController.h */,
+				C5BCF95E1DB35A8900A81F36 /* LabelViewController.m */,
 				C54713641DB23CD5009FD170 /* Main.storyboard */,
 				C54713671DB23CD6009FD170 /* Assets.xcassets */,
 				C54713691DB23CD6009FD170 /* LaunchScreen.storyboard */,
@@ -279,6 +284,7 @@
 				C54713631DB23CD5009FD170 /* ViewController.m in Sources */,
 				C54713601DB23CD5009FD170 /* AppDelegate.m in Sources */,
 				C547135D1DB23CD5009FD170 /* main.m in Sources */,
+				C5BCF95F1DB35A8900A81F36 /* LabelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +520,7 @@
 				C54713871DB23CD6009FD170 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C54713881DB23CD6009FD170 /* Build configuration list for PBXNativeTarget "TestOCWithiOSTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +529,7 @@
 				C547138A1DB23CD6009FD170 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C547138B1DB23CD6009FD170 /* Build configuration list for PBXNativeTarget "TestOCWithiOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +538,7 @@
 				C547138D1DB23CD6009FD170 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

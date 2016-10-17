@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LabelViewController.h"
+
 
 @interface ViewController : UIViewController
 
