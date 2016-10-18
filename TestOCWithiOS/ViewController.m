@@ -15,11 +15,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
 @property (weak, nonatomic) IBOutlet UIButton *testThreadButton;
 @property (weak, nonatomic) IBOutlet UIButton *testLockButton;
-@property (assign,nonatomic) NSInteger goods;
+@property (nonatomic,assign) NSInteger goods;
 @property (nonatomic,strong) NSThread *thread1;
 @property (nonatomic,strong) NSThread *thread2;
 @property (nonatomic,strong) NSThread *thread3;
 @property (nonatomic,strong) NSLock *lock;
+@property (nonatomic,strong) NSMutableSet *aSet;
+@property (nonatomic,strong) NSMutableArray *anArray;
 
 @end
 
@@ -29,9 +31,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.goods = 20;
+    self.goods = 10;
     [self.testThreadButton addTarget:self action:@selector(testThreadButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.testLockButton addTarget:self action:@selector(testLockButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    self.lock = [[NSLock alloc] init];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -52,48 +55,32 @@
 
 - (void)testLockButtonClick {
     
-    UIView *oneView = [[UIView alloc] init];
-    NSMutableArray *anArray = [[NSMutableArray alloc] init];
-    NSMutableSet *anSet = [[NSMutableSet alloc] init];
-    self.lock = [[NSLock alloc] init];
+    NSString *oneStr = [[NSString alloc] initWithString:@"oneStr"];
+    self.anArray = [[NSMutableArray alloc] init];
+    self.aSet = [[NSMutableSet alloc] init];
     
-    [anArray addObject:oneView];
-    [anArray addObject:oneView];
-    [anSet addObject:oneView];
-    [anSet addObject:oneView];
+    [self.anArray addObject:oneStr];
+    [self.anArray addObject:oneStr];
+    [self.aSet addObject:oneStr];
+    [self.aSet addObject:oneStr];
     
-    NSLog(@"anArray is %@",anArray);
-    NSLog(@"anSet is %@",anSet);
-    /*
-     上述是对Array与Set的区别测试
-     
-     */
+    NSLog(@"anArray is %@",self.anArray);
+    NSLog(@"anSet is %@",self.aSet);
     
     
-    self.thread1 = [[NSThread alloc] initWithTarget:self selector:@selector(buyProduct) object:nil];
-    self.thread1.name = @"custom1";
-    self.thread2 = [[NSThread alloc] initWithTarget:self selector:@selector(buyProduct) object:nil];
-    self.thread2.name = @"custom2";
-
-    //锁
+    //解决不同步，加锁
     [self.lock lock];
-    
-    
-    
-    
-    [anArray removeObject:oneView];
-    
-    [anSet removeObject:oneView];
-    
-    
-    
+    [self.anArray removeObject:oneStr];
+    [self.aSet removeObject:oneStr];
     [self.lock unlock];
     
-    NSLog(@"anArray is %@",anArray);
+    NSLog(@"anArray is %@",self.anArray);
+    NSLog(@"anSet is %@",self.aSet);
+    /*
+     上述是对Array与Set的区别测试
+     */
     
-    NSLog(@"anSet is %@",anSet);
-    
-    
+    //闭包实验
     NSInteger(^getMaxNumber)(NSInteger,NSInteger) = ^(NSInteger a,NSInteger b) {
         if (a > b) {
             return a;
@@ -107,6 +94,7 @@
     NSLog(@"max c is %d",c);
 }
 
+
 #pragma mark - testThread 
 
 - (void)testThreadButtonClick {
@@ -117,32 +105,37 @@
     self.thread2.name = @"custom2";
     self.thread3 = [[NSThread alloc] initWithTarget:self selector:@selector(buyProduct) object:nil];
     self.thread3.name = @"custom3";
-}
-- (void)buyProduct {
-    
-    
     [self.thread1 start];
     [self.thread2 start];
     [self.thread3 start];
+}
+- (void)buyProduct {
+
+    //nslock实现
+//    [_lock lock];
+//    while (self.goods >= 1) {
+//        [NSThread sleepForTimeInterval:0.3];
+//        self.goods -= 1;
+//        NSThread *currentThread = [NSThread currentThread];
+//        NSLog(@"customer is %@, goods left %d",currentThread,self.goods);
+//    }
+//    [_lock unlock];
+//    [NSThread exit];
+//    self.goods = 10;
+    
     //为什么到－2停止了，，，有趣－ －
-    while (self.goods >= 0) {
+    //synchronized实现
+    @synchronized (self) {
         //锁定
-        @synchronized (self) {
-            
-            NSInteger goodsCopy = self.goods;
-            if (goodsCopy)
-                
-            [NSThread sleepForTimeInterval:0.5];
-            
+        while (self.goods >= 1) {
+            [NSThread sleepForTimeInterval:0.3];
             self.goods -= 1;
-            
             NSThread *currentThread = [NSThread currentThread];
             NSLog(@"customer is %@, goods left %d",currentThread,self.goods);
         }
+        [NSThread exit];
+        self.goods = 10;
     }
-    [NSThread exit];
-    self.goods = 20;
-    
 }
 
 
